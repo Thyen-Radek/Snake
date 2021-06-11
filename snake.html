@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Snake</title>
+    <style>
+        * {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .klasowo {
+            width: 320px;
+            height: 320px;
+            position: relative;
+            left: 100px;
+            top: 100px;
+        }
+        
+        .wysoko {
+            position: absolute;
+            height: 16px;
+            width: 320px;
+        }
+        
+        .szeroko {
+            position: absolute;
+            height: 15px;
+            width: 15px;
+            background-color: green;
+            border: solid 1px green;
+        }
+        
+        .sciana {
+            position: absolute;
+            height: 15px;
+            width: 15px;
+            background-color: brown;
+            border: solid 1px brown;
+        }
+        
+        .kropka {
+            position: absolute;
+            height: 15px;
+            width: 15px;
+            background-color: green;
+            border: solid 1px green;
+        }
+        
+        .green {
+            position: absolute;
+            height: 15px;
+            width: 15px;
+            background-color: green;
+            border: solid 1px green;
+        }
+    </style>
+</head>
+
+<body onkeydown="myFunction(event)">
+    <script>
+        div = document.createElement("div")
+        div.className = "klasowo"
+        var g = 0
+        var g1 = 0
+        for (x = 0; x < 20; x++) {
+            divek = document.createElement("div")
+            divek.className = "wysoko"
+            divek.style.top = g * 16 + "px"
+            divek.value = x
+            div.appendChild(divek)
+            g = g + 1
+            for (a = 0; a < 20; a++) {
+                divek1 = document.createElement("div")
+                divek1.className = "szeroko"
+                divek1.style.left = g1 * 16 + "px"
+                divek.appendChild(divek1)
+                g1 = g1 + 1
+            }
+            if (g1 == 20) {
+                g1 = 0
+            }
+        }
+        var jd = 10
+        var jd1 = 10
+        document.body.appendChild(div)
+        for (c = 0; c < 20; c++) {
+            document.getElementsByClassName("wysoko")[c].children[19].className = "sciana"
+            document.getElementsByClassName("wysoko")[c].children[0].className = "sciana"
+            document.getElementsByClassName("wysoko")[0].children[c].className = "sciana"
+            document.getElementsByClassName("wysoko")[19].children[c].className = "sciana"
+            document.getElementsByClassName("wysoko")[c].children[19].style.backgroundImage = 'url("sciana.png")'
+            document.getElementsByClassName("wysoko")[c].children[0].style.backgroundImage = 'url("sciana.png")'
+            document.getElementsByClassName("wysoko")[0].children[c].style.backgroundImage = 'url("sciana.png")'
+            document.getElementsByClassName("wysoko")[19].children[c].style.backgroundImage = 'url("sciana.png")'
+        }
+        document.getElementsByClassName("wysoko")[10].children[10].style.backgroundImage = 'url("glowa1.png")'
+        document.getElementsByClassName("wysoko")[10].children[10].className = "kropka"
+        hm = Math.floor(Math.random() * 322)
+        document.getElementsByClassName("szeroko")[hm].style.backgroundImage = "url('japko.png')"
+        document.getElementsByClassName("szeroko")[hm].className = "green"
+        tab = []
+        tab1 = [jd, jd1]
+        tab.push(tab1)
+        hehs = 0
+        hm4 = "url('glowa2.png')"
+
+        function myFunction(event) {
+            y = x
+            x = event.key;
+            if (y == "ArrowRight" && x == "ArrowLeft") {
+                x = "ArrowRight"
+            }
+            if (x == "ArrowRight" && y == "ArrowLeft") {
+                x = "ArrowLeft"
+            }
+            if (y == "ArrowUp" && x == "ArrowDown") {
+                x = "ArrowUp"
+            }
+            if (x == "ArrowUp" && y == "ArrowDown") {
+                x = "ArrowDown"
+            }
+            if (x == "ArrowRight") {
+                hm4 = "url('glowa1.png')"
+            }
+            if (x == "ArrowUp") {
+                hm4 = "url('glowa3.png')"
+            }
+            if (x == "ArrowLeft") {
+                hm4 = "url('glowa2.png')"
+            }
+            if (x == "ArrowDown") {
+                hm4 = "url('glowa4.png')"
+            }
+        }
+
+        function myFunction1() {
+            for (a = 0; a < 20; a++) {
+                for (b = 0; b < 20; b++) {
+                    if (document.getElementsByClassName("wysoko")[a].children[b].className == "green") {
+                        pepege = document.getElementsByClassName("wysoko")[a].style.top
+                        pepege2 = document.getElementsByClassName("wysoko")[a].children[b].style.left
+                    }
+                }
+            }
+            ogon = tab[tab.length - 1]
+            if (x == "ArrowRight") {
+                jd = jd + 1
+                if (jd < 19) {
+                    document.getElementsByClassName("wysoko")[jd1].children[jd - 1].className = "szeroko"
+                    document.getElementsByClassName("wysoko")[jd1].children[jd].className = "kropka"
+                }
+                if (jd == 19) {
+                    clearInterval(interval1);
+                    alert("Koniec gry (kliknij ok, aby zagrać ponownie")
+                    location.reload()
+                }
+                if (jd == 19) {
+                    jd = jd - 1
+                }
+                for (a = 1; a < tab.length; a++) {
+                    tab[tab.length - a] = tab[tab.length - (a + 1)]
+                }
+                tab[0] = [jd, jd1]
+            }
+            if (x == "ArrowLeft") {
+                jd = jd - 1
+                if (jd > 0) {
+                    document.getElementsByClassName("wysoko")[jd1].children[jd + 1].className = "szeroko"
+                    document.getElementsByClassName("wysoko")[jd1].children[jd].className = "kropka"
+                }
+                if (jd == 0) {
+                    clearInterval(interval1);
+                    alert("Koniec gry (kliknij ok, aby zagrać ponownie")
+                    location.reload()
+                }
+                if (jd == 0) {
+                    jd = jd + 1
+                }
+                for (a = 1; a < tab.length; a++) {
+                    tab[tab.length - a] = tab[tab.length - (a + 1)]
+                }
+                tab[0] = [jd, jd1]
+            }
+            if (x == "ArrowUp") {
+
+                jd1 = jd1 - 1
+                if (jd1 > 0) {
+                    document.getElementsByClassName("wysoko")[jd1 + 1].children[jd].className = "szeroko"
+                    document.getElementsByClassName("wysoko")[jd1].children[jd].className = "kropka"
+                }
+                if (jd1 == 0) {
+                    clearInterval(interval1);
+                    alert("Koniec gry (kliknij ok, aby zagrać ponownie")
+                    location.reload()
+                }
+                if (jd1 == 0) {
+                    jd1 = jd1 + 1
+                }
+                for (a = 1; a < tab.length; a++) {
+                    tab[tab.length - a] = tab[tab.length - (a + 1)]
+                }
+                tab[0] = [jd, jd1]
+
+            }
+            if (x == "ArrowDown") {
+                jd1 = jd1 + 1
+                if (jd1 < 19) {
+                    document.getElementsByClassName("wysoko")[jd1 - 1].children[jd].className = "szeroko"
+                    document.getElementsByClassName("wysoko")[jd1].children[jd].className = "kropka"
+                }
+                if (jd1 == 19) {
+                    clearInterval(interval1);
+                    alert("Koniec gry (kliknij ok, aby zagrać ponownie")
+                    location.reload()
+                }
+                if (jd1 == 19) {
+                    jd1 = jd1 - 1
+                }
+                for (a = 1; a < tab.length; a++) {
+                    tab[tab.length - a] = tab[tab.length - (a + 1)]
+                }
+                tab[0] = [jd, jd1]
+            }
+            if (document.getElementsByClassName("wysoko")[tab[0][1]].children[tab[0][0]].className == "kropka") {
+                xpepege = document.getElementsByClassName("wysoko")[tab[0][1]].style.top
+                xpepege2 = document.getElementsByClassName("wysoko")[tab[0][1]].children[tab[0][0]].style.left
+            }
+
+            if (hehs == 1) {
+                tab.push(hmm)
+            }
+            for (a = 1; a < tab.length; a++) {
+                if (tab[0][0] == tab[a][0] && tab[0][1] == tab[a][1]) {
+                    clearInterval(interval1);
+                    alert("Koniec gry (kliknij ok, aby zagrać ponownie")
+                    location.reload()
+                }
+            }
+            ogon1 = tab[tab.length - 1]
+            document.getElementsByClassName("wysoko")[ogon[1]].children[ogon[0]].style.backgroundImage = "url('puste.png')"
+            document.getElementsByClassName("wysoko")[ogon[1]].children[ogon[0]].className = "szeroko"
+            for (a = 0; a < tab.length; a++) {
+                document.getElementsByClassName("wysoko")[tab[0][1]].children[tab[0][0]].style.backgroundImage = hm4
+                if (tab.length > 1) {
+                    if (tab[tab.length - 1][0] == (tab[tab.length - 2][0] - 1) && tab[tab.length - 1][1] == tab[tab.length - 2][1]) {
+                        hm5 = "url('ogon3.png')"
+                    }
+                    if (tab[tab.length - 1][0] == (tab[tab.length - 2][0] + 1) && tab[tab.length - 1][1] == tab[tab.length - 2][1]) {
+                        hm5 = "url('ogon4.png')"
+                    }
+                    if (tab[tab.length - 1][0] == tab[tab.length - 2][0] && (tab[tab.length - 1][1] - 1) == tab[tab.length - 2][1]) {
+                        hm5 = "url('ogon2.png')"
+                    }
+                    if (tab[tab.length - 1][0] == tab[tab.length - 2][0] && (tab[tab.length - 1][1] + 1) == tab[tab.length - 2][1]) {
+                        hm5 = "url('ogon1.png')"
+                    }
+                    document.getElementsByClassName("wysoko")[ogon1[1]].children[ogon1[0]].style.backgroundImage = hm5
+                }
+                if (tab.length > 1) {
+                    if (document.getElementsByClassName("wysoko")[tab[a][1]].children[tab[a][0]].style.backgroundImage == 'url("glowa1.png")') {
+                        document.getElementsByClassName("wysoko")[tab[a][1]].children[tab[a][0]].style.backgroundImage = 'url("body3.png")'
+                    }
+                    if (document.getElementsByClassName("wysoko")[tab[a][1]].children[tab[a][0]].style.backgroundImage == 'url("glowa2.png")') {
+                        document.getElementsByClassName("wysoko")[tab[a][1]].children[tab[a][0]].style.backgroundImage = 'url("body4.png")'
+                    }
+                    if (document.getElementsByClassName("wysoko")[tab[a][1]].children[tab[a][0]].style.backgroundImage == 'url("glowa3.png")') {
+                        document.getElementsByClassName("wysoko")[tab[a][1]].children[tab[a][0]].style.backgroundImage = 'url("body1.png")'
+                    }
+                    if (document.getElementsByClassName("wysoko")[tab[a][1]].children[tab[a][0]].style.backgroundImage == 'url("glowa4.png")') {
+                        document.getElementsByClassName("wysoko")[tab[a][1]].children[tab[a][0]].style.backgroundImage = 'url("body2.png")'
+                    }
+                }
+                for (b = 1; b < tab.length - 1; b++) {
+                    if ((tab[b][0] + 1) == tab[b + 1][0] && tab[b][1] == tab[b + 1][1] && (tab[b][1] - 1) == tab[b - 1][1] && tab[b][0] == tab[b - 1][0]) {
+                        document.getElementsByClassName("wysoko")[tab[b][1]].children[tab[b][0]].style.backgroundImage = 'url("skret2.png")'
+                    }
+                    if ((tab[b][0] + 1) == tab[b - 1][0] && tab[b][1] == tab[b - 1][1] && (tab[b][1] + 1) == tab[b + 1][1] && tab[b][0] == tab[b + 1][0]) {
+                        document.getElementsByClassName("wysoko")[tab[b][1]].children[tab[b][0]].style.backgroundImage = 'url("skret3.png")'
+                    }
+                    if (tab[b][0] == tab[b - 1][0] && (tab[b][1] + 1) == tab[b - 1][1] && tab[b][1] == tab[b + 1][1] && (tab[b][0] - 1) == tab[b + 1][0]) {
+                        document.getElementsByClassName("wysoko")[tab[b][1]].children[tab[b][0]].style.backgroundImage = 'url("skret4.png")'
+                    }
+                    if ((tab[b][0] - 1) == tab[b - 1][0] && tab[b][1] == tab[b - 1][1] && (tab[b][1] - 1) == tab[b + 1][1] && tab[b][0] == tab[b + 1][0]) {
+                        document.getElementsByClassName("wysoko")[tab[b][1]].children[tab[b][0]].style.backgroundImage = 'url("skret1.png")'
+                    }
+                    if ((tab[b][0] - 1) == tab[b - 1][0] && tab[b][1] == tab[b - 1][1] && (tab[b][1] + 1) == tab[b + 1][1] && tab[b][0] == tab[b + 1][0]) {
+                        document.getElementsByClassName("wysoko")[tab[b][1]].children[tab[b][0]].style.backgroundImage = 'url("skret4.png")'
+                    }
+                    if (tab[b][0] == tab[b - 1][0] && (tab[b][1] - 1) == tab[b - 1][1] && tab[b][1] == tab[b + 1][1] && (tab[b][0] - 1) == tab[b + 1][0]) {
+                        document.getElementsByClassName("wysoko")[tab[b][1]].children[tab[b][0]].style.backgroundImage = 'url("skret1.png")'
+                    }
+                    if ((tab[b][0] + 1) == tab[b - 1][0] && tab[b][1] == tab[b - 1][1] && (tab[b][1] - 1) == tab[b + 1][1] && tab[b][0] == tab[b + 1][0]) {
+                        document.getElementsByClassName("wysoko")[tab[b][1]].children[tab[b][0]].style.backgroundImage = 'url("skret2.png")'
+                    }
+                    if (tab[b][0] == tab[b - 1][0] && (tab[b][1] + 1) == tab[b - 1][1] && tab[b][1] == tab[b + 1][1] && (tab[b][0] + 1) == tab[b + 1][0]) {
+                        document.getElementsByClassName("wysoko")[tab[b][1]].children[tab[b][0]].style.backgroundImage = 'url("skret3.png")'
+                    }
+                }
+                document.getElementsByClassName("wysoko")[tab[a][1]].children[tab[a][0]].className = "kropka"
+            }
+            hehs = 0
+            if (xpepege == pepege && xpepege2 == pepege2) {
+                hm = Math.floor(Math.random() * (document.getElementsByClassName("szeroko").length - 1))
+                document.getElementsByClassName("szeroko")[hm].style.backgroundImage = "url('japko.png')"
+                document.getElementsByClassName("szeroko")[hm].className = "green"
+                hmm = tab[tab.length - 1]
+                hehs = 1
+            }
+        }
+        interval1 = window.setInterval(myFunction1, 100)
+    </script>
+</body>
+
+</html>
