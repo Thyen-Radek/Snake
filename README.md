@@ -2,4 +2,4 @@
 
 To run click:
 
-https://thyen-radek.github.io/Snake
+https://rkawa01.github.io/Snake
